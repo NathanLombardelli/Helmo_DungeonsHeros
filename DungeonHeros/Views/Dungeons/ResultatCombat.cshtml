@@ -1,0 +1,17 @@
+﻿@using DungeonHeros.Models.ViewModel;
+
+@model ResultatCombatViewModel;
+
+<div class="d-flex justify-content-center align-items-center">
+
+    @if (Model.reussi)
+    {
+        <h1 class="text-success">@Model.resultat</h1>
+    }
+    else
+    {
+        <h1 class="text-danger">@Model.resultat</h1>
+    }
+
+
+</div>

@@ -1,0 +1,12 @@
+
+====================== Utilisateur lambda ===================
+Nom de Hero  || adresse mail ||                         ||  MDP
+Ghostkiller    ghostkiller598r@gmail.com		   admin
+Ghost          nathanlombardelli@hotmail.com		   admin
+LOU            fabriceetverodehous@hotmail.com		   admin
+Icare          dejardinveronique.b159@hotmail.com          admin
+
+
+===================== Role Admin ==================================
+
+admin         admin@hotmail.com                            admin

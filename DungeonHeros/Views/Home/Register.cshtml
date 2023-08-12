@@ -1,0 +1,56 @@
+﻿
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 flex-column">
+
+<h1 class="titreConnection">Dungeon's Heros</h1>
+
+    <form method="post" asp-action="Register">
+
+        <div class="inputFormulaire">
+            <input class="inputConnection" name="user"/>
+
+            <input class="inputConnection" name="mail"/>
+ 
+            <input class="inputConnection" name="password"/>
+
+            <input class="inputConnection" name="passwordVerif"/>
+
+            <input type="date" class="inputConnection" name="dateOfBirth"/>
+
+
+
+            <select  class="inputConnection" name="Classe">
+              <option value="-">-</option>
+              <option value="Magicien">Magicien</option>
+              <option value="Guerrier">Guerrier</option>
+              <option value="Archer">Archer</option>
+              <option value="Voleur">Voleur</option>
+             </select>
+
+            <select  class="inputConnection" name="Race">
+              <option value="-">-</option>
+              <option value="Nain">Nain</option>
+              <option value="Orc">Orc</option>
+              <option value="Elf">Elf</option>
+              <option value="Humain">Humain</option>
+            </select>
+         </div>
+
+         <div class="nomInput">
+             <p class="h2">Nom du Heros</p>
+             <p class="h2">Adresse email</p>
+             <p class="h2">Mot de passe</p>
+             <p class="h2">Confirmation du Mot de passe</p>
+             <p class="h2">Date de naissance</p>
+             <p class="h2">Classe du Heros</p>
+             <p class="h2">Race du Heros</p>
+         </div>
+
+         <a class="roundButton" onclick="this.closest('form').submit();return false;">Valider</a>
+
+     </form>
+    
+
+
+
+</div>

@@ -1,0 +1,65 @@
+﻿@using DungeonHeros.Models.ViewModel
+
+@model MyErrorViewModel
+
+
+<h2 class="titre d-flex justify-content-center">Creation de Hero</h2>
+
+@if (Model != null)
+{
+    if(Model.IsError == true){
+        <h3 class=" text-danger d-flex justify-content-center">@Model.Message</h3>
+    }
+    else
+    {
+         <h3 class=" text-success d-flex justify-content-center">@Model.Message</h3>
+    }
+}
+
+<form class="d-flex flex-column justify-content-center align-items-center" method="post" enctype="multipart/form-data">
+
+    <div class="d-flex flex-column align-items-center justify-content-center fs-3">
+
+
+        <img src="~/Images/Placeholder_hero.jpg" class="imgCreationHero" />
+
+
+        <h2> Choisir l'illustration du Heros : </h2>
+        <input type="file" name="Image" accept=".png, .jpg, .jpeg">
+    </div>
+
+    <div class="d-flex m-5">
+        <h2>Nom :</h2>
+        <input class="fs-2 ms-5 ps-3 rounded-pill" name="HeroName"/>
+    </div>
+
+    <div class="d-flex m-5">
+        <h2>Classe :</h2>
+        <select asp-items="Html.GetEnumSelectList<Classe>()" class="inputConnection" name="Classe">
+        </select>
+    </div>
+
+    <div class="d-flex m-5">
+        <h2>Race :</h2>
+        <select asp-items="Html.GetEnumSelectList<Race>()" class="inputConnection" name="Race">
+        </select>
+
+    </div>
+
+
+    <div class="d-flex m-5">
+        <h2>Force :</h2>
+        <input id="ForceHero" type="number" class="fs-2 ms-5 ps-3 pe-4 rounded-pill" value="4" name="Force"/>
+    </div>
+
+    <div class="d-flex m-5 ">
+        <h2 class="me-5">Endurance :</h2>
+        <input id="EnduranceHero" type="number" class="fs-2 ms-1 ps-3 pe-4 rounded-pill" value="3" name="Endurance"/>
+    </div>
+
+    <p class="fs-3 red"> * la somme de la force et de l'endurance ne peut pas excéder 7</p>
+
+    <button type="submit" class="grosButton w-75"> Creer</button>
+
+</form>
+

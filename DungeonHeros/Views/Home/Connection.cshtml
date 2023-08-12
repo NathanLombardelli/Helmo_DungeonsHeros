@@ -1,0 +1,33 @@
+﻿
+<div class="d-flex justify-content-center align-items-center min-vh-100 flex-column">
+    
+
+    <h1 class="titreConnection">Dungeon's Heros</h1>
+
+    <form method="post" asp-action="Connection">
+
+        <div class="decalageConnection">
+            <p class="h2">Nom du Heros / Email</p>
+            <input class="inputConnection" name="user"/>
+        </div>
+
+
+        <div class="d-flex mb-4 ms-5">
+            <p class="h2">Mot de passe</p>
+            <input class="inputConnection" name="password"/>
+        </div>
+
+        <div class="d-flex">
+
+            <a class="roundButton" asp-area="" asp-controller="Home" asp-action="Register">s'enregistrer</a>
+            <a class="roundButton" onclick="this.closest('form').submit();return false;" >se connecter</a>
+
+        </div>
+
+    </form>
+
+
+
+
+
+</div>

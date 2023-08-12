@@ -1,0 +1,37 @@
+﻿@model DungeonManagementViewModel
+
+<h1 class="titrePage">Liste des donjons</h1>
+
+<div class="d-flex vw-100">
+    <div>
+        <input class="searchbar" id="searchbar" type="text" name="search" placeholder="Rechercher un donjon">
+        <button>Rechercher</button>
+    </div>
+    
+    <div class="d-flex align-items-center  m-3">
+        <label class="me-2">Trier :</label>
+        <select class="">
+            <option value="-">-</option>
+            <option value="Niveaux">Niveaux</option>
+            <option value="Nom">Nom</option>
+        </select>
+    </div>
+
+</div>
+
+<div class="Grid">
+
+
+    @foreach(var dj in Model.DungeonList)
+    {
+     <div class="DongeonBox">
+        <a asp-controller="Dungeons"  asp-action="Combat" asp-route-NameDj="@dj.Name" >
+            <img src=@dj.Image>
+            <h2 name="NameDj">@dj.Name</h2>
+            <p class="fs-4">LVL : @dj.Level</p>
+        </a>
+    </div>
+    }
+
+
+</div>

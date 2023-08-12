@@ -1,0 +1,72 @@
+﻿@using DungeonHeros.Models.ViewModel;
+
+@model CombatViewModel;
+
+<form method="post">
+    <div class="d-flex justify-content-center flex-column align-items-center">
+
+        <div class="d-flex justify-content-center align-items-center w-50 flex-column mb-5">
+
+
+            <img class="w-50 m-3" src="@Model.Image" />
+            <h2>@Model.Name</h2>
+            <h3>Lvl : @Model.Level</h3>
+
+
+        </div>
+
+        <h1>Selectionner une equipe</h1>
+
+        <div class="d-flex justify-content-center w-50 mb-5">
+
+
+
+            @foreach (var team in Model.teams)
+            {
+                <div class="hofSecondBox">
+                    <p> Score : @team.Score</p>
+                    <p> Equipe : </p>
+                    <div class="HallOfFameEquipImg mb-5">
+
+                        @for (var i = 0; i < team.Heroes.Count; i++)
+                        {
+                            <div class="d-flex flex-column">
+                                <img src="@team.Heroes[i].Image" />
+                                <p>@team.Heroes[i].Nom</p>
+                                <p>Lvl : @team.Heroes[i].Lvl</p>
+                            </div>
+                        }
+
+                        @{
+
+                            int nbHero = team.Heroes.Count;
+                            int nbrPlaceHolder = 4 - nbHero;
+
+                            @for (var i = 0; i < nbrPlaceHolder; i++)
+                            {
+                                <div class="d-flex flex-column">
+                                    <img src="~/Images/Placeholder_hero.jpg" />
+                                    <p>...</p>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <input class="checkbox" type="radio" name="teamSelected" value="@team.Id">
+                    <input name="idDj" value="@Model.Id" hidden />
+                </div>
+            }
+
+        </div>
+
+
+        <a class="btn_combat d-flex justify-content-center align-items-center" onclick="this.closest('form').submit();return false;">
+            <img class="LeftSword" src="~/Images/Sword.png" />
+            <img class="RigthSword" src="~/Images/Sword.png" />
+            <h2 class="Combatre">Combatre</h2>
+        </a>
+
+
+    </div>
+
+</form>

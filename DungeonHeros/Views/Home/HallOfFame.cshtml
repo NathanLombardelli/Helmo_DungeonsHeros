@@ -1,0 +1,147 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model HallOfFameViewModel
+
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+
+<div class="d-flex justify-content-center align-items-center min-vh-100 flex-column">
+    <h1 class="titreConnection">Hall Of Fame</h1>
+
+
+
+    <div class="d-flex align-items-end mb-5">
+        
+        
+        <div class="hofSecondBox">
+            <h2 class="Silver">2e</h2>
+            <p> @Model.Teams[1].Heroes[0].Nom </p>
+            <p> @Model.Teams[1].Score </p>
+            <p> Equipe : </p>
+            <div class="HallOfFameEquipImg">
+
+                @for (var i = 0; i < Model.Teams[1].Heroes.Count; i++)
+                {
+                     <div class="d-flex flex-column">
+                         <img src="@Model.Teams[1].Heroes[i].Image"/>
+                         <p>@Model.Teams[1].Heroes[i].Nom</p>
+                     </div>
+                }
+
+                @if (true) {
+
+                    int nbHero = Model.Teams[1].Heroes.Count;
+                    int nbrPlaceHolder = 4 - nbHero;
+
+                    @for (var i = 0; i < nbrPlaceHolder; i++)
+                    {
+                        <div class="d-flex flex-column">
+                            <img src="~/Images/Placeholder_hero.jpg"/>
+                            <p>...</p>
+                        </div>
+                    }
+                }
+
+
+            </div>
+        </div>
+
+
+
+
+        <div class="hofFirstBox">
+            <h2 class="Gold">1er</h2>
+            <p> @Model.Teams[0].Heroes[0].Nom </p>
+            <p> @Model.Teams[0].Score </p>
+            <p> Equipe : </p>
+            <div class="HallOfFameEquipImg">
+               
+                @for (var i = 0; i < Model.Teams[0].Heroes.Count; i++)
+                {
+                     <div class="d-flex flex-column">
+                         <img src="@Model.Teams[0].Heroes[i].Image"/>
+                         <p>@Model.Teams[0].Heroes[i].Nom</p>
+                     </div>
+                }
+
+               @if (true) {
+
+                    int nbHero = Model.Teams[0].Heroes.Count;
+                    int nbrPlaceHolder = 4 - nbHero;
+
+                    @for (var i = 0; i < nbrPlaceHolder; i++)
+                    {
+                        <div class="d-flex flex-column">
+                            <img src="~/Images/Placeholder_hero.jpg"/>
+                            <p>...</p>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+
+        <div class="hofThirdBox">
+            <h2 class="Copper">3e</h2>
+            <p> @Model.Teams[2].Heroes[0].Nom </p>
+            <p> @Model.Teams[2].Score  </p>
+            <p> Equipe : </p>
+            <div class="HallOfFameEquipImg">
+              
+               @for (var i = 0; i < Model.Teams[2].Heroes.Count; i++)
+                {
+                     <div class="d-flex flex-column">
+                         <img src="@Model.Teams[2].Heroes[i].Image"/>
+                         <p>@Model.Teams[2].Heroes[i].Nom</p>
+                     </div>
+                }
+
+                @if (true) {
+
+                    int nbHero = Model.Teams[2].Heroes.Count;
+                    int nbrPlaceHolder = 4 - nbHero;
+
+                    @for (var i = 0; i < nbrPlaceHolder; i++)
+                    {
+                        <div class="d-flex flex-column">
+                            <img src="~/Images/Placeholder_hero.jpg"/>
+                            <p>...</p>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+    @if(SignInManager.IsSignedIn(User)){ //si l'utilisateur est authentifier :
+
+        <h2>Ton classement : </h2>
+
+    
+
+        @foreach(var team in @Model.Teams)
+        {
+            @if (team.UserId ==  UserManager.GetUserId(User)) // si la team appartien a l'utilisateur connecter
+           {
+                int pos = @Model.Teams.IndexOf(team) + 1;
+
+                if(pos >= 2){
+                
+                    <h2>@UserManager.GetUserName(User) tu est @pos e dans le classement </h2>
+                }
+                else
+                {
+                    <h2> Felicitation @Model.Teams[@Model.Teams.IndexOf(team)].Heroes[0].Nom,  tu est @pos er du classement ! </h2>
+                }
+
+                break;
+            }
+
+        
+        }
+
+    }
+
+</div>

@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@model TeamViewModel
+
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+
+
+@{
+    var usr = await UserManager.GetUserAsync(User);
+
+}
+
+<h2 class="titre d-flex justify-content-center">Mes equipes</h2>
+
+<div class="d-flex">
+
+    <div class="ScrollBox">
+        <a class="folowSkroll text-decoration-none text-white d-flex justify-content-center align-items-center" asp-controller="Team" asp-action="CreationTeam">Creer une nouvelle equipe</a>
+    </div>
+
+    <div class="d-flex align-items-start flex-column ">
+        @if (Model != null)
+        {
+            @foreach (var team in Model.Teams)
+            {
+                <div class="hofSecondBox">
+                    <p> Score : @team.Score</p>
+                    <p> Equipe : </p>
+                    <div class="HallOfFameEquipImg">
+
+                        @for (var i = 0; i < team.Heroes.Count; i++)
+                        {
+                            <div class="d-flex flex-column">
+                                <img src="@team.Heroes[i].Image" />
+                                <p>@team.Heroes[i].Nom</p>
+                            </div>
+                        }
+
+                        @{
+
+                            int nbHero = team.Heroes.Count;
+                            int nbrPlaceHolder = 4 - nbHero;
+
+                            @for (var i = 0; i < nbrPlaceHolder; i++)
+                            {
+                                <div class="d-flex flex-column">
+                                    <img src="~/Images/Placeholder_hero.jpg" />
+                                    <p>...</p>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <form method="post">
+                        <input name="IdTeam" value="@team.Id" hidden>
+                        <input name="Delete" value=false hidden>
+                        <button class="modifyButton text-decoration-none text-black d-flex justify-content-center align-items-center" type="submit">Modifier</button>
+                    </form>
+
+                    <form method="post">
+                        <input name="IdTeam" value="@team.Id" hidden>
+                        <input name="Delete" value=true hidden>
+                        <button class="supButton text-decoration-none text-black d-flex justify-content-center align-items-center" type="submit">Supprimer</button>
+                    </form>
+                </div>
+            }
+
+        }
+
+
+    </div>
+</div>
+

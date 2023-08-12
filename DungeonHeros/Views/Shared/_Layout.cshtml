@@ -1,0 +1,111 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DungeonHeros</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/DungeonHeros.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="brand" asp-area="" asp-controller="Home" asp-action="Index">DungeonHeros</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div>
+                    <ul class="navbar-nav flex-grow-1">
+                        @{
+                        if(SignInManager.IsSignedIn(User)) {
+                            if(UserManager.GetUserName(User).Equals("admin")) {  //  User.IsInRole("admin") ne marche pas ? 
+
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i> Acceuil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="HallOfFame"><i class="fa fa-trophy" aria-hidden="true"></i> Hall of Fame</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="DungeonManagement"><i class="fa fa-cogs" aria-hidden="true"></i> Gestion des donjons </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Dungeons" asp-action="DungeonCreation"><i class="fa fa-plus-circle" aria-hidden="true"></i> Creer un donjon </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="menu" asp-area="Identity" asp-page="/Account/Logout">LogOut <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            </li>
+
+                            }else{
+
+
+
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i> Acceuil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="HallOfFame"><i class="fa fa-trophy" aria-hidden="true"></i> Hall of Fame</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="Profile"><i class="fa fa-user" aria-hidden="true"></i> Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="Teams"><i class="fa fa-users" aria-hidden="true"></i> Teams</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="menu" asp-area="" asp-controller="Home" asp-action="DungeonsList"><i class="fa fa-map" aria-hidden="true"></i> Donjons</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="menu" asp-area="Identity" asp-page="/Account/Logout">LogOut <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                            </li>
+
+                            }
+
+                            
+                        }else{
+                        <li class="nav-item">
+                            <a class="menu" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i> Acceuil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="menu" asp-area="" asp-controller="Home" asp-action="HallOfFame"><i class="fa fa-trophy" aria-hidden="true"></i> Hall of Fame</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="menu" asp-area="Identity" asp-page="/Account/Login">Se Connecter / s'enregistrer <i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                        </li>
+
+                        }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - DungeonHeros - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿@model DungeonHeros.Models.ViewModel.DungeonViewModel
+
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="m-5 d-flex justify-content-center flex-column">
+        
+
+        <div class="d-flex flex-column align-items-center justify-content-sm-center mb-5 m-5">
+            <div class="d-flex">
+                <label class="h2"> Nom du donjon : </label>
+                <input class="inputConnection " name="NomDj" value="" />
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <div class="imageDJ">
+                <img src="~/Images/placeholder-image.png" class="w-100 mb-3 border" />
+            </div>
+
+            <h2 class="me-3"> Choisir l'image du donjon : </h2>
+            <input type="file" name="Image" id="img_DJ" accept="image/png, image/jpeg">
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center mt-5">
+            <h2 class="fs-1">Level : </h2><h2 id="Lvl" class="ms-3 fs-1"> 0 </h2>
+            <input id="LvlDj" name="LvlDj" value="0" hidden/>
+        </div>
+        
+    </div>
+
+
+
+    <h2 class="d-flex justify-content-center mb-5"> Monstres du donjon : </h2>
+
+    <div class="Grid">
+
+        @foreach (Monstre monstre in Model.Monstres)
+        {
+
+            <div class="MonsterBox">
+
+                <img src="@monstre.Avatar" />
+                <h2 class="fs-1">@monstre.Nom</h2>
+                <h2 class="red"> Force : </h2> <h2 id="@monstre.Nom Force">@monstre.Force</h2>
+                <h2 class="red"> Endurance : </h2> <h2>@monstre.Endurance</h2>
+
+                <div class="CompteurDiv">
+                    <div class="Compteur">
+                        <a onclick="decrement('@monstre.Nom Counting')">-</a>
+
+                        @{
+
+                            var force = @monstre.Force * 0;
+                            <h2 id="@monstre.Nom ForceTotal" hidden>@force</h2>
+                            <h2 id="@monstre.Nom Counting" >0</h2>
+                            <input id="@monstre.Nom CountingPost" name="NbrMonstres" value="@monstre.Nom ;0" hidden/>   <!-- le post de name multiple ne marche qu'avec des inputs -->
+                        }
+
+
+                        <a onclick="increment('@monstre.Nom Counting')">+</a>  <!-- si button ici lors du click, post le formulaire...  -->
+                    </div>
+                    <a class="btn_reset" onclick="resetCount('@monstre.Nom Counting')">Reset</a>
+
+                </div>
+
+            </div>
+
+            <!--<input id="monstreNbr" name="monstreNbr" value="monstre.Nom ; " hidden/>-->
+
+        }
+
+
+    </div>
+
+    
+
+    <div class="d-flex justify-content-center m-5 ">
+        <button  class="rounded-pill p-4 fs-1 w-100 m-5">Creer</button>
+    </div>
+
+    </form>

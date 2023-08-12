@@ -1,0 +1,17 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<header>
+    
+    
+    <div class="min-vh-100 d-flex justify-content-center align-items-center flex-column">
+        <h1 class="red fs-1">Voulez-vous vraiment vous deconnecter ?</h1>
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <button type="submit" class="nav-link btn btn-link fs-1">Se deconnecter</button>
+        </form>
+    </div>
+
+</header>

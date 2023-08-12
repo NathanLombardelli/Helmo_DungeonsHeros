@@ -1,0 +1,82 @@
+﻿@model TeamViewModel
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<h2 class="titre d-flex justify-content-center">Modification d'equipes</h2>
+
+
+<div class="EquipImg">
+    @if(@Model != null){
+    @foreach (var hero in Model.Team.Heroes)
+    {
+        <div class="d-flex flex-column" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <img src=@hero.Image />
+            <div class="d-flex justify-content-center align-items-md-center fs-2"><p>@hero.Nom Lvl : </p><p>@hero.Lvl</p></div>
+        </div>
+
+    }
+
+
+
+        int nbHero = Model.Team.Heroes.Count;
+        int nbrPlaceHolder = 4 - nbHero;
+
+        @for (var i = 0; i < nbrPlaceHolder; i++)
+        {
+            <div class="d-flex flex-column" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <img src="~/Images/Placeholder_hero.jpg" />
+                <div class="d-flex justify-content-center align-items-md-center fs-2"><p> ... </p><p></p></div>
+            </div>
+        }
+    
+
+    }
+
+
+</div>
+
+<a class="grosButton d-flex align-items-center justify-content-center" asp-controller="Team" asp-action="CreationHero">Creer un Hero</a>
+
+
+<!-- Modal -->
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content ">
+            <div class="modal-header flex-column-reverse">
+                <h1 class="modal-title" id="staticBackdropLabel">Choisiser vos heros</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post">
+                                        @if (@Model != null)
+                {
+                    <div class="modal-body ">
+
+                        <div class="EquipImgModal">
+
+                            @foreach (var hero in Model.HeroUser)
+                            {
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <img src=@hero.Image />
+                                    <div class="d-flex justify-content-center align-items-md-center fs-2"><p>@hero.Nom Lvl : </p><p>@hero.Lvl</p></div>
+                                    <input class="checkbox" name="herosSelected" type="checkbox" id="choix-1" value="@hero.Id">
+                                </div>
+                            }
+
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+
+                    <input name="idTeam" value="@Model.Team.Id" hidden/>
+                }
+            </form>
+
+        </div>
+    </div>
+</div>

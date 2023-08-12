@@ -1,0 +1,91 @@
+﻿@model DungeonHeros.Models.ViewModel.DungeonViewModel
+
+
+<div class="m-5 d-flex justify-content-center flex-column">
+    
+
+    <div class="d-flex flex-column align-items-center justify-content-sm-center mb-5 m-5">
+       <div class="d-flex">
+           <label class="h2"> Nom du donjon : </label>
+           <input class="inputConnection " value="@Model.Name"/>
+       </div>
+
+   </div>
+
+    <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="imageDJ">
+            <img src="@Model.Image" class="w-100 mb-3"/>
+        </div>
+
+        <h2 class="me-3"> Choisir l'image du donjon : </h2>
+        <input type="file" id="img_DJ"  accept="image/png, image/jpeg">
+    </div>
+ 
+    <div class="d-flex justify-content-center align-items-center mt-5">
+        <h2 class="fs-1">Level : </h2><h2 id="Lvl" class="ms-3 fs-1"> @Model.Level</h2>
+    </div>
+
+</div>
+
+
+
+<h2 class="d-flex justify-content-center mb-5"> Monstres du donjon : </h2>
+
+<div class="Grid">
+
+    @foreach(Monstre monstre in Model.Monstres){
+
+    <div class="MonsterBox">
+
+        <img src="@monstre.Avatar" />
+        <h2 class="fs-1">@monstre.Nom</h2>
+        <h2 class="red"> Force : </h2> <h2 id="@monstre.Nom Force">@monstre.Force</h2> 
+        <h2 class="red"> Endurance : </h2> <h2>@monstre.Endurance</h2>
+       
+        <div class="CompteurDiv">
+           <div class= "Compteur">
+                <a onclick="decrement('@monstre.Nom Counting')">-</a>
+
+                    @if (Model.MonstresDuDj.ContainsKey(@monstre.Nom)) {
+                        var force = @monstre.Force * @Model.MonstresDuDj[@monstre.Nom];
+                        <h2 id="@monstre.Nom ForceTotal" hidden>@force</h2>
+                        <h2 id="@monstre.Nom Counting">@Model.MonstresDuDj[@monstre.Nom]</h2>
+                    }
+                    else
+                    {
+                        var force = @monstre.Force * 0;
+                        <h2 id="@monstre.Nom ForceTotal" hidden>@force</h2>
+                        <h2 id="@monstre.Nom Counting">0</h2>
+                    }
+                
+                
+                <a onclick="increment('@monstre.Nom Counting')">+</a>
+            </div>
+            <a class="btn_reset" onclick="resetCount('@monstre.Nom Counting')">clear</a>
+           
+        </div>
+
+    </div>
+
+    }
+
+
+</div>
+       <div class="d-flex justify-content-center m-5">
+            <button class="rounded-pill p-4 fs-1 w-100 m-5">Modifier</button>
+       </div>
+
+
+       <!-- Si Pas de Niveaux en BD -->
+<script>  
+    document.addEventListener('DOMContentLoaded', function() {
+    var lvl = 0;
+    var x = document.querySelectorAll('[id*="ForceTotal"]');
+    for (var i = 0; i < x.length; i++) {
+        console.log(x[i].innerHTML);
+        lvl = lvl + Number(x[i].innerHTML);
+    }
+
+    document.getElementById("Lvl").innerText = lvl;
+});
+</script>

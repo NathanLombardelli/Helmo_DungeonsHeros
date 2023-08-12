@@ -1,0 +1,54 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject UserManager<User> UserManager
+@inject SignInManager<User> SignInManager
+@{
+    var usr = await UserManager.GetUserAsync(User);
+    var HeroName = usr.NomHero;
+    var Email = usr.Email;
+    DateTime Date = usr.DateOfBirth;
+    var DateOfBirth = Date.ToString("yyyy-MM-dd");
+}
+<div class="d-flex justify-content-center align-items-center min-vh-100 flex-column">
+
+<h1 class="titreConnection">Profile</h1>
+
+    <form>
+        <div class="inputFormulaire">
+            <input class="inputConnection" value="@HeroName"/>
+
+            <input class="inputConnection" value="@Email"/>
+
+            <input type="date" class="inputConnection" value="@DateOfBirth"/>
+
+            <select  class="inputConnection" name="Classe">
+              <option value="-">-</option>
+              <option value="Magicien">Magicien</option>
+              <option value="Guerrier">Guerrier</option>
+              <option value="Archer">Archer</option>
+              <option value="Voleur">Voleur</option>
+             </select>
+
+            <select  class="inputConnection" name="Race">
+              <option value="-">-</option>
+              <option value="Nain">Nain</option>
+              <option value="Orc">Orc</option>
+              <option value="Elf">Elf</option>
+              <option value="Humain">Humain</option>
+            </select>
+         </div>
+
+         <div class="nomInputProfile">
+             <p class="h2">Nom du Heros</p>
+             <p class="h2">Adresse email</p>
+             <p class="h2">Date de naissance</p>
+             <p class="h2">Classe du Heros</p>
+             <p class="h2">Race du Heros</p>
+         </div>
+
+        <a class="roundButton" href="#">Modifier</a>
+
+    </form>
+
+
+</div>
